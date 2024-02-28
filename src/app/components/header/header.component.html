@@ -1,0 +1,16 @@
+<div class="header">
+    <div class="wrapper">
+    <a routerLink="/about" class="header-logo">
+      <img class="header-logo__link" src="../../../assets/images/Frostlogo.svg" alt="Frost logo"/>
+    </a>
+    <nav>
+      <ul>
+        <li><a routerLink="/contact">Контакты</a></li>
+        <li><a routerLink="/about">О нас</a></li>
+        <li><a routerLink="/reviews">Отзывы</a></li>
+      </ul>
+    </nav>
+    <a routerLink="/profile">Профиль</a>
+    <button active="isActive" (click)="logOut()">Профиль</button>
+  </div>
+</div>
