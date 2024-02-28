@@ -7,6 +7,7 @@ import {singIn} from "../https/user";
   standalone: true,
   imports: [
     NgClass
+
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss'
@@ -22,8 +23,9 @@ export class SignInComponent {
 
   check = () =>{
     singIn(this.email, this.password).then((r: any) => {
+      this.isGood = true;
       return r;
     })
-    this.isGood = true;
+
   }
 }

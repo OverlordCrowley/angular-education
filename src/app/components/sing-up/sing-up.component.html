@@ -1,1 +1,16 @@
-<p>sing-up works!</p>
+<div class="wrapper">
+  <div class="modal-wrapper">
+    <p class="modal-title">
+      Регистрация учетной записи
+    </p>
+    <div class="field-block">
+      <input class="field" type="text" placeholder="Имя" [value]="name">
+      <input class="field" type="email" placeholder="Адрес электронной почты" [value]="email">
+      <input class="field" type="password" placeholder="Пароль" [value]="password">
+    </div>
+    <p [ngClass]="{error: isGood }">Error</p>
+
+    <button (click)="check()" class="blue-btn btn-right">Зарегистрироваться</button>
+  </div>
+
+</div>

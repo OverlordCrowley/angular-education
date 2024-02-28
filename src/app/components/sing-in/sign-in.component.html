@@ -7,7 +7,7 @@
       <input class="field" type="email" placeholder="Адрес электронной почты" [value]="email">
       <input class="field" type="password" placeholder="Пароль" [value]="password">
     </div>
-    <p ngClass="{'': isGood, 'error': !isGood'}">Error</p>
+    <p [ngClass]="{error: isGood }">Error</p>
 
     <button (click)="check()" class="blue-btn btn-right">Войти</button>
   </div>

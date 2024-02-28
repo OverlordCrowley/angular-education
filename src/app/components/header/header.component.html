@@ -7,16 +7,19 @@
     </a>
     <nav>
       <ul class="navbar">
-        <li><a routerLink="/contact">Контакты</a></li>
-        <li><a routerLink="/about">О нас</a></li>
-        <li><a routerLink="/reviews">Отзывы</a></li>
+        <li><a [routerLink]="['/contact']">Контакты</a></li>
+        <li><a [routerLink]="['/about']">О нас</a></li>
+        <li><a [routerLink]="['/reviews']">Отзывы</a></li>
       </ul>
     </nav>
     <div class="header-right">
-      <a routerLink="/profile" class="blue-btn">Профиль</a>
-      <button ngClass="{active: isActive, }"
+      <a routerLink="/profile" class="blue-btn" [ngClass]="{'noActive': !isActive, }">Профиль</a>
+      <button [ngClass]="{'noActive': !isActive, }"
               class="blue-btn gray-btn"
-              (click)="exit()">Выйти из аккаунта</button>
+              (click)="exit()">Выйти из аккаунта
+      </button>
+      <a routerLink="/signIn" class="blue-btn" [ngClass]="{'noActive': isActive, }">Вход</a>
+      <a routerLink="/signUp" class="blue-btn" [ngClass]="{'noActive': isActive, }">Регистрация</a>
     </div>
   </div>
 </div>
