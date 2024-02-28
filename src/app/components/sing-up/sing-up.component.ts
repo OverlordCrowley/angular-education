@@ -9,7 +9,7 @@ import {NgClass} from "@angular/common";
     NgClass
   ],
   templateUrl: './sing-up.component.html',
-  styleUrl: './sing-up.component.css'
+  styleUrl: './sing-up.component.scss'
 })
 export class SingUpComponent {
   isGood: boolean = false;

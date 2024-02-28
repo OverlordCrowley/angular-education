@@ -1,1 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: var(--white-color);
+  text-decoration: none;
+  list-style: none;
+  font-family: "Mulish", sans-serif;
+  font-weight: normal;
+
+  --might-dark: #1E1E1E;
+  --white-color: #fff;
+  --gray: #4B4B4B;
+  --light-gray: #D3D3D3;
+  --blue: #2156BD;
+  --ultra-light-gray: #F6F6F6;
+}
+
+.wrapper{
+  width: 1000px;
+  margin: 0 auto;
+}
+
+button{
+  cursor: pointer;
+}
+
+.blue-btn{
+  background-color: var(--blue);
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+}
+
+.gray-btn{
+  background-color: var(--gray  );
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+}
+
+.field{
+  background-color: var(--ultra-light-gray);
+  border: var(--light-gray);
+  padding: 9px 20px;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #D3D3D3;
+  color: #1E1E1E;
+}
+
+body{
+  background-color: var(--ultra-light-gray);
+}
+
+.noActive{
+  display: none;
+}
