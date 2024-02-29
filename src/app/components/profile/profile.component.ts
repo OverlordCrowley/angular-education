@@ -13,6 +13,10 @@ export class ProfileComponent {
   email: string;
   getProfile = () =>{
     let res = getUser();
-    res
+    console.log(res)
+  }
+  constructor() {
+    this.name = '';
+    this.email = '';
   }
 }

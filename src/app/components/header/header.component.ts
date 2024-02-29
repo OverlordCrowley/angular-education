@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {getUser, logOut} from "../https/user";
 import {NgClass} from "@angular/common";
-
 @Component({
   selector: 'Header',
   standalone: true,
@@ -16,15 +15,20 @@ import {NgClass} from "@angular/common";
 export class HeaderComponent {
    isActive: boolean = false;
 
-   constructor() {
+   constructor(private router: Router) {
      let user = getUser();
      if(user){
        this.isActive = true;
+       this.router.navigate(['/profile'])
      }
+     this.router.navigate(['/signIn'])
+
+
    }
 
    exit = () =>{
      logOut();
+     this.router.navigate(['/signIn'])
   }
 
 

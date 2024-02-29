@@ -4,9 +4,9 @@
       Регистрация учетной записи
     </p>
     <div class="field-block">
-      <input class="field" type="text" placeholder="Имя" [value]="name">
-      <input class="field" type="email" placeholder="Адрес электронной почты" [value]="email">
-      <input class="field" type="password" placeholder="Пароль" [value]="password">
+      <input class="field" type="text" placeholder="Имя" (input)="onNameChange($event)">
+      <input class="field" type="email" placeholder="Адрес" (input)="onEmailChange($event)">
+      <input class="field" type="password" placeholder="Пароль" (input)="onPasswordChange($event)">
     </div>
     <p [ngClass]="{error: isGood }">Error</p>
 
