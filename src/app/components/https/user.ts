@@ -24,9 +24,11 @@ export async function singIn(email: string, password: string){
   return result;
 }
 
-export async function signUp(username: string, email: string, password: string){
+export async function signUp(name: string, email: string, password: string,
+                             lastName: string, hobbies: string[], phone: string){
   let result  = await axios.post(`http://localhost:8080/api/user/registration`,
-    {"name": username, "email": email, "password": password}
+    {"name": name, "email": email, "password": password,
+    "lastName": lastName, "hobbies": hobbies, "phone": phone}
   )
   return result;
 }

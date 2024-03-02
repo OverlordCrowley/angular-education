@@ -18,10 +18,17 @@ export class ProfileComponent {
   photo: File | undefined;
   setPhoto: any;
   password: string;
+  hobbies: string;
+  lastName: string;
+  phone: string;
 
   constructor(private cdr: ChangeDetectorRef) {
     let user = getUser();
+    console.log(user)
     this.name = user.firstName ? user.firstName : user.user.firstName;
+    this.hobbies = user.hobbies ? user.hobbies : user.user.hobbies;
+    this.lastName = user.lastName ? user.lastName : user.user.lastName;
+    this.phone = user.phone ? user.phone : user.user.phone;
     this.email = user.email ? user.email : user.user.email;
     this.isLoaded = false;
     this.password = user.pass ? user.pass : user.user.pass;

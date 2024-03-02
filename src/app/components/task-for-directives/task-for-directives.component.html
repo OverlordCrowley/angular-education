@@ -1,5 +1,6 @@
 <input type="text" #inputField
        style="color: #1E1E1E"
+       [(ngModel)]="inputValue"
        (input)="validateInput(inputField.value)" />
 <div *ngIf="!isEmpty"
      [ngClass]="{'red': isSymbol, 'blue': isPrime && !isSelected, 'green': !isPrime && !isSelected}"
@@ -10,7 +11,7 @@
 
 
 
-<button (click)="saveValue(inputField.value)">Сохранить</button>
+<button class="blue-btn" (click)="saveValue(inputField.value)">Сохранить</button>
 
 <ul>
   <li *ngFor="let item of items" style="color: #1E1E1E">

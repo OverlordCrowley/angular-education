@@ -1,16 +1,34 @@
 <div class="wrapper">
-  <div class="modal-wrapper">
+  <form [formGroup]="register" class="modal-wrapper">
     <p class="modal-title">
       Регистрация учетной записи
     </p>
     <div class="field-block">
-      <input class="field" type="text" placeholder="Имя" (input)="onNameChange($event)">
-      <input class="field" type="email" placeholder="Адрес" (input)="onEmailChange($event)">
-      <input class="field" type="password" placeholder="Пароль" (input)="onPasswordChange($event)">
+      <input class="field" type="text" placeholder="Имя" formControlName="Name" required>
+      <p *ngIf="register.get('Name')?.invalid && (register.get('Name')?.dirty ||
+      register.get('Name')?.touched)" style="color: red">Заполните корректно данное поле</p>
+
+      <input class="field" type="text" placeholder="Фамилия" formControlName="FirstName" required>
+      <p *ngIf="register.get('FirstName')?.invalid && (register.get('FirstName')?.dirty ||
+      register.get('FirstName')?.touched)" style="color: red">Заполните корректно данное поле</p>
+
+      <input class="field" type="text" placeholder="Телефон" formControlName="Phone" required>
+      <p *ngIf="register.get('Phone')?.invalid && (register.get('Phone')?.dirty ||
+      register.get('Phone')?.touched)" style="color: red">Заполните корректно данное поле</p>
+
+      <input class="field" type="email" placeholder="Email" formControlName="Email" required>
+      <p *ngIf="register.get('Email')?.invalid && (register.get('Email')?.dirty ||
+      register.get('Email')?.touched)" style="color: red">Заполните корректно данное поле</p>
+
+      <app-toggle-list (inputListChanged)="receiveMessage($event)"></app-toggle-list>
+
+      <input class="field" type="password" placeholder="Пароль" formControlName="Pass" required>
+      <p *ngIf="register.get('Pass')?.invalid && (register.get('Pass')?.dirty ||
+      register.get('Pass')?.touched)" style="color: red">Заполните корректно данное поле</p>
+
     </div>
-    <p [ngClass]="{error: isGood }">Error</p>
 
     <button (click)="check()" class="blue-btn btn-right">Зарегистрироваться</button>
-  </div>
+  </form>
 
 </div>

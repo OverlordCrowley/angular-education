@@ -5,7 +5,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   name: 'colorTextPipe',
   standalone: true
 })
-export class ColorTextPipePipe implements PipeTransform {
+export class ColorTextPipe implements PipeTransform {
 
   constructor(private _sanitizer: DomSanitizer) {}
 

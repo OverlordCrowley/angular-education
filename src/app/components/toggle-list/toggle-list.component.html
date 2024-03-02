@@ -1,0 +1,18 @@
+<form [formGroup]="form">
+  <button type="button" style="margin-top: 15px" class="blue-btn" (click)="addInput()">Добавить</button>
+  <div formArrayName="inputs">
+    <div *ngFor="let input of inputs.controls; let i = index" class="input-group">
+     <div class="MainBlock">
+       <input type="text" placeholder="ваше хобби" minlength="1" [formControlName]="i"
+              class="field" required>
+       <div class="input-group-append" style="width: 100%; height: 100%">
+         <button type="button" class="gray-btn btn btn-danger" style="margin-top: 20px; border-radius: 0" (click)="removeInput(i)" *ngIf="inputs.controls.length > 1">Удалить</button>
+       </div>
+     </div>
+      <p *ngIf="inputs.controls[i]?.invalid && (inputs.controls[i]?.dirty ||
+      inputs.controls[i]?.touched
+      )" style="color: red">Заполните данное поле</p>
+    </div>
+  </div>
+
+</form>

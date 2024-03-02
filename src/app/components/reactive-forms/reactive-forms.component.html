@@ -1,0 +1,18 @@
+<form [formGroup]="registerForm">
+  <input type="text"
+         formControlName="colorInput"
+         style="color: #1E1E1E"/>
+  <div *ngIf="!isEmpty"
+       [ngClass]="{'red': isSymbol, 'blue': isPrime && !isSelected, 'green': !isPrime && !isSelected}"
+
+  >{{message}}</div>
+</form>
+
+<button class="blue-btn" (click)="saveValue()">Сохранить</button>
+
+<ul>
+  <li *ngFor="let item of items" style="color: #1E1E1E">
+    <div [innerHTML]="item | colorTextPipe"></div>
+  </li>
+</ul>
+

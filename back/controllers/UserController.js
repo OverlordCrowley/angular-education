@@ -7,10 +7,8 @@ const {uid} = require("uid");
 
 class UserController {
   async registration(req, res, next) {
-    const {name, email, password} = req.body
-    if (!email || !password || !name) {
-      return next(ApiError.badRequest('Некорректный email или пароль'))
-    }
+    const {name, email, password, lastName, hobbies, phone} = req.body
+    console.log(req.body)
 
     const candidate = await User.User.findOne({where: {'email': email}})
 
@@ -19,10 +17,8 @@ class UserController {
       return next(ApiError.badRequest('Пользователь с таким email уже существует'))
     }
     try {
-
-
-      const user = await User.User.create({"firstName": name, "email": email, "pass": password})
-
+      const user = await User.User.create({"firstName": name, "email": email, "pass": password,
+      "lastName": lastName, "hobbies": String(hobbies), "phone": phone})
       return res.json({user})
     } catch (error) {
       next(ApiError.badRequest('Ошибка регистрации'))
@@ -50,24 +46,6 @@ class UserController {
     }
   }
 
-  async getPhotoUrl(req, res, next) {
-    const { email } = req.body;
-    try {
-      const user = await User.User.findOne({ where: { "email": email } });
-
-      if (!user) {
-        return next(ApiError.internal('Пользователь не найден'));
-      }
-
-
-      return res.json({
-        "image": user.image
-      });
-
-    } catch (error) {
-      return next(ApiError.internal('Ошибка при получении данных пользователя'));
-    }
-  }
 
   async updateProfilePhoto(req, res, next) {
     if (!req.files || !req.files.photo) {

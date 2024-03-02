@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {NgClass} from "@angular/common";
-import {ColorTextPipePipe} from "../../pipes/color-text-pipe.pipe";
+import {ColorTextPipe} from "../../pipes/color-text-pipe.pipe";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-task-for-directives',
@@ -9,11 +10,12 @@ import {ColorTextPipePipe} from "../../pipes/color-text-pipe.pipe";
   imports: [
     NgIf,
     NgClass,
+    FormsModule,
     NgForOf,
-    ColorTextPipePipe
+    ColorTextPipe
   ],
   templateUrl: './task-for-directives.component.html',
-  styleUrl: './task-for-directives.component.css'
+  styleUrl: './task-for-directives.component.scss'
 })
 export class TaskForDirectivesComponent {
   inputValue: string = '';
@@ -70,6 +72,7 @@ export class TaskForDirectivesComponent {
     if (!this.inputError) {
       this.items.push(value);
       this.inputValue = '';
+      console.log(this.inputValue)
       this.isEmpty = true;
     }
   }
