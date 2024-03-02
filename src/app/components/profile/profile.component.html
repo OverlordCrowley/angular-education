@@ -1,9 +1,13 @@
-<div class="wrapper">
-  <div class="profile-left">
-    <img src="/assets/images/Sample_User_Icon.png" alt="Your icon">
-  </div>
+<div class="wrapper profile-wrapper">
+  <ng-form class="profile-left">
+    <img [src]="setPhoto" alt="Your icon">
+    <input type="file" accept="image/*" class="fileInput" (change)="onFileSelected($event)" >
+    <button class="blue-btn btnSave" (click)="sendPhoto()">Сохранить</button>
+  </ng-form>
+
+
   <div class="profile-right">
-    <p>{{name}}</p>
-    <p>{{email}}</p>
+    <p style="color: black">Ваше имя: {{name}}</p>
+    <p style="color: black">Ваш email: {{email}}</p>
   </div>
 </div>

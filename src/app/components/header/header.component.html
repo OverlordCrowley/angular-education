@@ -10,16 +10,17 @@
         <li><a [routerLink]="['/contact']">Контакты</a></li>
         <li><a [routerLink]="['/about']">О нас</a></li>
         <li><a [routerLink]="['/reviews']">Отзывы</a></li>
+        <li><a [routerLink]="['/forDirectives']">forDirectives</a></li>
       </ul>
     </nav>
     <div class="header-right">
-      <a routerLink="/profile" class="blue-btn" [ngClass]="{'noActive': !isActive, }">Профиль</a>
-      <button [ngClass]="{'noActive': !isActive, }"
+      <a  *ngIf="booleanValue"routerLink="/profile" class="blue-btn">Профиль</a>
+      <button *ngIf="booleanValue"
               class="blue-btn gray-btn"
               (click)="exit()">Выйти из аккаунта
       </button>
-      <a routerLink="/signIn" class="blue-btn" [ngClass]="{'noActive': isActive, }">Вход</a>
-      <a routerLink="/signUp" class="blue-btn" [ngClass]="{'noActive': isActive, }">Регистрация</a>
+      <a *ngIf="!booleanValue" routerLink="/signIn" class="blue-btn">Вход</a>
+      <a *ngIf="!booleanValue" routerLink="/signUp" class="blue-btn">Регистрация</a>
     </div>
   </div>
 </div>

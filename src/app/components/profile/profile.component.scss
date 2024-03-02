@@ -1,0 +1,32 @@
+img{
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  border-radius: 50%;
+  border: none;
+}
+.profile-wrapper{
+  margin-top: 100px;
+  display: flex;
+  width: 700px;
+}
+
+.profile{
+  &-left{
+    width: 250px;
+  }
+  &-right{
+    margin-top: 50px;
+    margin-left: 25px;
+  }
+}
+
+.fileInput{
+  margin-top: 15px;
+  background-color: transparent;
+  color: #1E1E1E;
+}
+
+.btnSave{
+  margin-top: 10px;
+}

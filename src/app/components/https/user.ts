@@ -12,6 +12,7 @@ export function getUser(){
   }
 }
 
+
 export function logOut(){
   localStorage.setItem('user', JSON.stringify(''));
 }
@@ -28,4 +29,22 @@ export async function signUp(username: string, email: string, password: string){
     {"name": username, "email": email, "password": password}
   )
   return result;
+}
+
+export async function updateProfilePhoto(email: string, file: File) {
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('photo', file);
+
+  try {
+    const result = await axios.post('http://localhost:8080/api/user/updateProfilePhoto', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    return result;
+  } catch (error) {
+    console.error('Error updating profile photo:', error);
+    throw error;
+  }
 }

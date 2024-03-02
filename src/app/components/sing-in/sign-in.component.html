@@ -4,8 +4,8 @@
       Вход в учётную запись
     </p>
     <div class="field-block">
-      <input class="field" type="email" placeholder="Адрес электронной почты" [value]="email">
-      <input class="field" type="password" placeholder="Пароль" [value]="password">
+      <input class="field" type="email" placeholder="Адрес электронной почты" (input)="onEmailChange($event)">
+      <input class="field" type="password" placeholder="Пароль" (input)="onPasswordChange($event)">
     </div>
     <p [ngClass]="{error: isGood }">Error</p>
 

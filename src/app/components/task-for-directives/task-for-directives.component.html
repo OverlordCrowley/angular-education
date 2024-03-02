@@ -1,0 +1,10 @@
+<input type="text" #inputField style="color: #1E1E1E" (input)="validateInput(inputField.value)" />
+<div *ngIf="!isEmpty && inputError" [ngClass]="{'red': isSymbol, 'blue': isPrime, 'green': !isPrime}">
+  {{message}}</div>
+
+<button (click)="saveValue(inputField.value)">Сохранить</button>
+
+<ul>
+  <li *ngFor="let item of items" style="color: #1E1E1E">{{ item }}</li>
+</ul>
+

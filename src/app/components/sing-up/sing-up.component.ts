@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {signUp} from "../https/user";
 import {NgClass} from "@angular/common";
 import {Router} from "@angular/router";
+import {BooleanService} from "../../services/global-state.service";
 
 @Component({
   selector: 'app-sing-up',
@@ -19,7 +20,7 @@ export class SingUpComponent {
   name: string;
 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private booleanService: BooleanService) {
     this.password = '';
     this.email = '';
     this.name = '';
@@ -37,7 +38,8 @@ export class SingUpComponent {
 
   check = () =>{
     signUp(this.name,this.email, this.password).then((r: any) => {
-      localStorage.setItem('user', JSON.stringify(r.user));
+      localStorage.setItem('user', JSON.stringify(r.data.user));
+      this.booleanService.setBooleanValue(true);
       this.router.navigate(['/profile'])
     })
   }

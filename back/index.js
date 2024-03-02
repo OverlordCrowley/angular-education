@@ -29,7 +29,14 @@ else{
   const app = express()
   app.use(cors())
   app.use(express.json())
-  app.use(express.static(path.resolve(__dirname, 'static')))
+
+  app.use('/static', express.static(path.join(__dirname, 'static')));
+
+  app.get('/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const photoUrl = `/static/${filename}`;
+    res.send({ photoUrl });
+  });
 
   app.use(fileUpload({}))
   app.use('/api', router)
