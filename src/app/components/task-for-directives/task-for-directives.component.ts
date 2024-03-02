@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {NgClass} from "@angular/common";
+import {ColorTextPipePipe} from "../../pipes/color-text-pipe.pipe";
 
 @Component({
   selector: 'app-task-for-directives',
@@ -8,7 +9,8 @@ import {NgClass} from "@angular/common";
   imports: [
     NgIf,
     NgClass,
-    NgForOf
+    NgForOf,
+    ColorTextPipePipe
   ],
   templateUrl: './task-for-directives.component.html',
   styleUrl: './task-for-directives.component.css'
@@ -17,21 +19,50 @@ export class TaskForDirectivesComponent {
   inputValue: string = '';
   isEmpty: boolean = true;
   inputError: boolean = false;
-  isPrime: boolean = false;
+  isPrime: boolean;
+  isSelected: boolean = false;
   isSymbol: boolean = false;
   items: string[] = [];
   message: string = '';
 
-  constructor() {}
+  constructor() {
+    this.isPrime = false;
+  }
 
   validateInput(value: string): void {
-    if(value !== ""){
-      this.isEmpty = false;
-    }
-    else{
+    if(value == ""){
       this.isEmpty = true;
     }
-    this.inputError = /[^\w\d]/.test(value);
+    this.isEmpty = false;
+
+
+    if(/[!@#$%^&*(),.?":{}|<>]/.test(value)
+    ){
+      this.isSymbol = true;
+      this.message = 'Вы ввели символ';
+      this.isSelected = true;
+
+    }
+
+    else{
+      let numberValue = Number(value);
+      if(Number.isInteger(numberValue)){
+        this.isSelected = false;
+        if ((numberValue % 2 === 0 || numberValue % 3 === 0) &&
+          numberValue > 0 &&
+          numberValue !== 2 && numberValue !== 3 && numberValue !== 1) {
+          this.isPrime = false;
+          this.message = 'Вы ввели составное число';
+        }
+
+        else {
+          this.isPrime = true;
+          this.message = 'Вы ввели простое число';
+        }
+      }
+    }
+
+
   }
 
 
@@ -39,6 +70,7 @@ export class TaskForDirectivesComponent {
     if (!this.inputError) {
       this.items.push(value);
       this.inputValue = '';
+      this.isEmpty = true;
     }
   }
 }
