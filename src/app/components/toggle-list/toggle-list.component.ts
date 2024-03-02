@@ -13,7 +13,7 @@ import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
     NgIf
   ],
   templateUrl: './toggle-list.component.html',
-  styleUrl: './toggle-list.component.css'
+  styleUrl: './toggle-list.component.scss'
 })
 export class ToggleListComponent implements OnInit {
   @Output() inputListChanged = new EventEmitter<string[]>();

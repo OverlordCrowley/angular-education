@@ -14,7 +14,7 @@ import {NgClass, NgForOf, NgIf} from "@angular/common";
     NgForOf
   ],
   templateUrl: './reactive-forms.component.html',
-  styleUrl: './reactive-forms.component.css'
+  styleUrl: './reactive-forms.component.scss'
 })
 export class ReactiveFormsComponent implements OnInit{
   inputValue: string = '';
