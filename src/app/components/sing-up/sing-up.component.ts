@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {BooleanService} from "../../services/global-state.service";
 import {ToggleListComponent} from "../toggle-list/toggle-list.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {setUser} from "../../store/actions/user.actions";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-sing-up',
@@ -23,7 +25,7 @@ export class SingUpComponent implements OnInit {
   hobbies: string[];
   register!: FormGroup;
 
-  constructor(private router: Router, private booleanService: BooleanService, private fb: FormBuilder) {
+  constructor(private router: Router, private booleanService: BooleanService, private fb: FormBuilder, private store: Store) {
   this.hobbies = [];
   }
 
@@ -50,6 +52,7 @@ export class SingUpComponent implements OnInit {
       this.hobbies, this.register.get("Phone")?.value
     ).then((r: any) => {
       localStorage.setItem('user', JSON.stringify(r.data.user));
+      this.store.dispatch(setUser({ payload: r.data.user }));
       this.booleanService.setBooleanValue(true);
       this.router.navigate(['/profile'])
     })

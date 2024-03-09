@@ -3,6 +3,8 @@ import {NgClass} from "@angular/common";
 import {getUser, singIn} from "../https/user";
 import { BooleanService} from '../../services/global-state.service';
 import {Router} from "@angular/router";
+import {Store} from "@ngrx/store";
+import {setUser} from "../../store/actions/user.actions";
 
 
 @Component({
@@ -21,7 +23,7 @@ export class SignInComponent implements OnInit{
   password!: string;
   email: string = '';
 
-  constructor(private booleanService: BooleanService, private router: Router) {}
+  constructor(private booleanService: BooleanService, private router: Router, private store: Store) {}
   onEmailChange = (event: any) => {
     this.email = (event.target as HTMLInputElement).value;
   }
@@ -33,6 +35,7 @@ export class SignInComponent implements OnInit{
   check = () => {
     singIn(this.email, this.password).then((r: any) => {
       this.isGood = true;
+      this.store.dispatch(setUser({ payload: r.data.user }));
       localStorage.setItem('user', JSON.stringify(r.data.user));
       this.booleanService.setBooleanValue(true);
       this.router.navigate(['/profile'])
