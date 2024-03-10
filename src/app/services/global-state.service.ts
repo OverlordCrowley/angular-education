@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {getUser} from "../components/https/user";
 
 @Injectable({
   providedIn: 'root'

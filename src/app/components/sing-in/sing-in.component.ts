@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {NgClass} from "@angular/common";
-import {getUser, singIn} from "../https/user";
 import { BooleanService} from '../../services/global-state.service';
 import {Router} from "@angular/router";
-import {Store} from "@ngrx/store";
-import {setUser} from "../../store/actions/user.actions";
-
+import {select, Store} from "@ngrx/store";
+import {SignIn} from "../../store/actions/user.actions";
+import {selectCurrentUser} from "../../store/selectors/user.selector";
+import {Observable} from "rxjs";
+import {IUser} from "../../store/state/user.state";
+import * as UserActions from "../../store/actions/user.actions";
 
 @Component({
   selector: 'signIn',
@@ -23,7 +25,11 @@ export class SignInComponent implements OnInit{
   password!: string;
   email: string = '';
 
-  constructor(private booleanService: BooleanService, private router: Router, private store: Store) {}
+  currentUser$: any;
+
+  constructor(private booleanService: BooleanService, private router: Router, private store: Store) {
+    this.currentUser$ = this.store.select(selectCurrentUser)
+  }
   onEmailChange = (event: any) => {
     this.email = (event.target as HTMLInputElement).value;
   }
@@ -33,18 +39,22 @@ export class SignInComponent implements OnInit{
 
 
   check = () => {
-    singIn(this.email, this.password).then((r: any) => {
-      this.isGood = true;
-      this.store.dispatch(setUser({ payload: r.data.user }));
-      localStorage.setItem('user', JSON.stringify(r.data.user));
-      this.booleanService.setBooleanValue(true);
-      this.router.navigate(['/profile'])
-      return r;
-    })
+    this.store.dispatch(UserActions.SignIn({email: this.email, password: this.password }));
+    // this.currentUser$ = this.store.pipe(select(selectCurrentUser));
+    // console.log(this.currentUser$.pass)
+    // console.log(this.store.pipe(select(selectCurrentUser)));
+
+    // singIn(this.email, this.password).then((r: any) => {
+    //   this.isGood = true;
+    //   localStorage.setItem('user', JSON.stringify(r.data.user));
+    //   this.booleanService.setBooleanValue(true);
+    //   this.router.navigate(['/profile'])
+    //   return r;
+    // })
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }
