@@ -8,22 +8,15 @@ export interface IUser{
 }
 export interface IUserState{
   user: IUser | null,
-  users?: IUser[],
+  users?: IUser[] | null,
   error: string | null;
 
 }
 
 
 export const initialUserState: IUserState = {
-  user: {
-    email: "",
-    phone: "",
-    firstName: "",
-    lastName: "",
-    hobby: [],
-    img: ""
-  },
-  users: [],
+  user: null,
+  users: null,
   error: null
 };
 

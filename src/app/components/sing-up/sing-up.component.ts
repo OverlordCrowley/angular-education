@@ -4,8 +4,11 @@ import {Router} from "@angular/router";
 import {BooleanService} from "../../services/global-state.service";
 import {ToggleListComponent} from "../toggle-list/toggle-list.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {Store} from "@ngrx/store";
-import {SignIn} from "../../store/actions/user.actions";
+import {select, Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {IUser} from "../../store/state/user.state";
+import {isUserDataAvailable, selectCurrentUser} from "../../store/selectors/user.selector";
+import {SignIn, SignUp} from "../../store/actions/user.actions";
 
 @Component({
   selector: 'app-sing-up',
@@ -20,12 +23,16 @@ import {SignIn} from "../../store/actions/user.actions";
   styleUrl: './sing-up.component.scss'
 })
 export class SingUpComponent implements OnInit {
-
+  isGood = false;
   hobbies: string[];
   register!: FormGroup;
+  currentUser$: Observable<IUser | null>;
+  isUserDataAvailable$: Observable<boolean>;
 
-  constructor(private router: Router, private booleanService: BooleanService, private fb: FormBuilder, private store: Store) {
+  constructor(private router: Router, private booleanService: BooleanService, private fb: FormBuilder, private store: Store,) {
   this.hobbies = [];
+  this.currentUser$ = this.store.select(selectCurrentUser);
+  this.isUserDataAvailable$ = this.store.select(isUserDataAvailable);
   }
 
   ngOnInit() {
@@ -36,6 +43,8 @@ export class SingUpComponent implements OnInit {
       Email: ['', [Validators.required, Validators.email]],
       Pass: ['', [Validators.required ]]
     });
+    this.currentUser$ = this.store.select(selectCurrentUser);
+    this.isUserDataAvailable$ = this.store.pipe(select(isUserDataAvailable));
   }
 
 
@@ -45,17 +54,20 @@ export class SingUpComponent implements OnInit {
 
   check = () =>{
 
-    // this.store.dispatch(SignIn({ email, password }));
-    //
-    // signUp(
-    //   String(this.register.get("Name")?.value), this.register.get("Email")?.value,
-    //   this.register.get("Pass")?.value, this.register.get("FirstName")?.value,
-    //   this.hobbies, this.register.get("Phone")?.value
-    // ).then((r: any) => {
-    //   // this.store.dispatch(new SetUser( r.data.user ));
-    //   this.booleanService.setBooleanValue(true);
-    //   this.router.navigate(['/profile'])
-    // })
-  }
+    this.store.dispatch(SignUp({ name: this.register.get("Name")?.value,
+      email: this.register.get("Email")?.value, password: this.register.get("Pass")?.value,
+      lastName: this.register.get("FirstName")?.value, hobbies: this.hobbies,
+      phone: this.register.get("Phone")?.value}));
 
+    this.isUserDataAvailable$.subscribe((userDataAvailable: boolean) => {
+      if (userDataAvailable) {
+        this.isGood = !this.isGood
+        this.booleanService.setBooleanValue(true);
+        // this.router.navigate(['/profile'])
+      } else {
+
+      }
+    });
+
+  }
 }

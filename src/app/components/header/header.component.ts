@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
 import {NgClass, NgIf} from "@angular/common";
 import {BooleanService} from "../../services/global-state.service";
-import {Subscription} from "rxjs";
-import {Store} from "@ngrx/store";
+import {Observable, Subscription} from "rxjs";
+import {select, Store} from "@ngrx/store";
+import {IUser} from "../../store/state/user.state";
+import {isUserDataAvailable, selectCurrentUser} from "../../store/selectors/user.selector";
+import {LogOut} from "../../store/actions/user.actions";
 @Component({
   selector: 'Header',
   standalone: true,
@@ -19,9 +22,11 @@ export class HeaderComponent {
    isActive: boolean = false;
   booleanValue: boolean;
   valueSubscription: Subscription;
-
+  private isUserDataAvailable$: Observable<boolean>;
   constructor(private router: Router, private booleanService: BooleanService, private store : Store) {
     this.booleanValue = false;
+
+    this.isUserDataAvailable$ = this.store.pipe(select(isUserDataAvailable));
 
     // this.store.dispatch(new GetUser());
     this.valueSubscription = this.booleanService.booleanValue$.subscribe((value : boolean) => {
@@ -41,7 +46,7 @@ export class HeaderComponent {
    }
 
    exit = () =>{
-     // logOut();
+     this.store.dispatch(LogOut());
      this.booleanValue = false;
      this.isActive = false;
      this.booleanService.setBooleanValue(false);

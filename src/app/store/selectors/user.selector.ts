@@ -1,5 +1,5 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { IUserState } from '../state/user.state';
+import {IUser, IUserState} from '../state/user.state';
 
 export const selectUsersState = createFeatureSelector<IUserState>('user');
 
@@ -13,3 +13,13 @@ export const selectAllUser = createSelector(
   (state: any) => state.users
 );
 
+export const isUserDataAvailable = createSelector(
+  selectCurrentUser,
+  (user: IUser | null) => {
+    if (user != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+);

@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="modal-wrapper">
+  <form class="modal-wrapper">
     <p class="modal-title">
       Вход в учётную запись
     </p>
@@ -7,9 +7,10 @@
       <input class="field" type="email" placeholder="Адрес электронной почты" (input)="onEmailChange($event)">
       <input class="field" type="password" placeholder="Пароль" (input)="onPasswordChange($event)">
     </div>
-    <p [ngClass]="{error: isGood }">Error</p>
+<!--    <p [ngClass]="{error: !isGood }">Error</p>-->
 
     <button (click)="check()" class="blue-btn btn-right">Войти</button>
-  </div>
+  </form>
+
 
 </div>

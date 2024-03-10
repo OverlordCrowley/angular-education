@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { of } from 'rxjs';
+import {of, tap} from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { UserService } from '../../services/user.service';
 import * as UserActions from '../actions/user.actions';
@@ -25,6 +25,7 @@ export class UserEffects {
 
   signUp$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.SignUp),
+    tap(action => console.log('SignUp action:', action)),
     mergeMap(({ name, email, password, lastName, hobbies, phone }) =>
       this.userService.signUp(name, email, password, lastName, hobbies, phone).pipe(
         map(response => UserActions.SignUpSuccess({ user: response })),
