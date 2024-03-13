@@ -15,7 +15,7 @@ export class UserEffects {
     mergeMap(({ email, password }) =>
       this.userService.signIn(email, password).pipe(
         map(response => {
-          console.log(response)
+          localStorage.setItem('user', JSON.stringify(response));
           return UserActions.SignInSuccess({ user: response });
         }),
         catchError(error => of(UserActions.SignInFailure({ error: error.message })))
@@ -25,20 +25,26 @@ export class UserEffects {
 
   signUp$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.SignUp),
-    tap(action => console.log('SignUp action:', action)),
     mergeMap(({ name, email, password, lastName, hobbies, phone }) =>
       this.userService.signUp(name, email, password, lastName, hobbies, phone).pipe(
-        map(response => UserActions.SignUpSuccess({ user: response })),
+        map(response => {
+          localStorage.setItem('user', JSON.stringify(response));
+          return UserActions.SignUpSuccess({ user: response });
+        }),
         catchError(error => of(UserActions.SignUpFailure({ error: error.message })))
       )
     )
   ));
 
+
   updateProfilePhoto$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.UpdateProfilePhoto),
     mergeMap(({ email, file }) =>
       this.userService.updateProfilePhoto(email, file).pipe(
-        map(response => UserActions.UpdateProfilePhotoSuccess({ user: response })),
+        map(response => {
+          localStorage.setItem('user', JSON.stringify(response))
+          return UserActions.UpdateProfilePhotoSuccess({ user: response })
+        } ),
         catchError(error => of(UserActions.UpdateProfilePhotoFailure({ error: error.message })))
       )
     )
@@ -46,9 +52,9 @@ export class UserEffects {
 
   getUsers$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.GetUsers),
-    mergeMap(() =>
-      this.userService.getUser().pipe(
-        map(response => UserActions.GetUsersSuccess({ users: response })),
+    mergeMap(({page}) =>
+      this.userService.getAllUsers(Number(page)).pipe(
+        map(response => UserActions.GetUsersSuccess({ users: response.users, totalPages: response.totalPages, currentPage: response.currentPage, })),
         catchError(error => of(UserActions.GetUsersFailure({ error: error.message })))
       )
     )

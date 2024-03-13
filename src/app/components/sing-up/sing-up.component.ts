@@ -26,12 +26,10 @@ export class SingUpComponent implements OnInit {
   isGood = false;
   hobbies: string[];
   register!: FormGroup;
-  currentUser$: Observable<IUser | null>;
   isUserDataAvailable$: Observable<boolean>;
 
-  constructor(private router: Router, private booleanService: BooleanService, private fb: FormBuilder, private store: Store,) {
+  constructor(private router: Router, private fb: FormBuilder, private store: Store,) {
   this.hobbies = [];
-  this.currentUser$ = this.store.select(selectCurrentUser);
   this.isUserDataAvailable$ = this.store.select(isUserDataAvailable);
   }
 
@@ -43,7 +41,6 @@ export class SingUpComponent implements OnInit {
       Email: ['', [Validators.required, Validators.email]],
       Pass: ['', [Validators.required ]]
     });
-    this.currentUser$ = this.store.select(selectCurrentUser);
     this.isUserDataAvailable$ = this.store.pipe(select(isUserDataAvailable));
   }
 
@@ -62,8 +59,7 @@ export class SingUpComponent implements OnInit {
     this.isUserDataAvailable$.subscribe((userDataAvailable: boolean) => {
       if (userDataAvailable) {
         this.isGood = !this.isGood
-        this.booleanService.setBooleanValue(true);
-        // this.router.navigate(['/profile'])
+        this.router.navigate(['/profile'])
       } else {
 
       }

@@ -1,5 +1,5 @@
 <div class="wrapper profile-wrapper">
-  <ng-form class="profile-left">
+  <ng-form class="profile-left" >
     <img [src]="setPhoto" alt="Your icon">
     <input type="file" accept="image/*" class="fileInput" (change)="onFileSelected($event)" >
     <button class="blue-btn btnSave" (click)="sendPhoto()">Сохранить</button>
@@ -11,6 +11,34 @@
     <p style="color: black">Ваша фамилия: {{lastName}}</p>
     <p style="color: black">Ваш email: {{email}}</p>
     <p style="color: black">Ваши хобби: {{hobbies}}</p>
-    <p style="color: black">Ваш email: {{phone}}</p>
+    <p style="color: black">Ваш телефон: {{phone}}</p>
+  </div>
+
+
+
+
+</div>
+
+
+<div class="wrapper profile-wrapper">
+  <div class="mini-profile">
+    <div class="profile-left profile-left-mini" >
+      <img [src]="setPhotoMini" alt="Mini icon">
+    </div>
+
+    <div class="profile-right profile-right-mini">
+      <p style="color: black">Имя: {{nameMini}}</p>
+      <p style="color: black">Фамилия: {{lastNameMini}}</p>
+      <p style="color: black">Email: {{emailMini}}</p>
+      <p style="color: black">Хобби: {{hobbiesMini}}</p>
+      <p style="color: black">Телефон: {{phoneMini}}</p>
+    </div>
+  </div>
+  <div>
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
   </div>
 </div>

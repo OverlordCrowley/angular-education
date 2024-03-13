@@ -27,8 +27,8 @@ export class SignInComponent implements OnInit{
   email: string = '';
 
   isUserDataAvailable$: Observable<boolean>;
-  constructor(private booleanService: BooleanService, private router: Router, private store: Store<IAppState>) {
-    this.isUserDataAvailable$ = this.store.pipe(select(isUserDataAvailable));
+  constructor(private router: Router, private store: Store<IAppState>) {
+    this.isUserDataAvailable$ = this.store.select(isUserDataAvailable);
   }
   onEmailChange = (event: any) => {
     this.email = (event.target as HTMLInputElement).value;
@@ -46,7 +46,6 @@ export class SignInComponent implements OnInit{
     this.isUserDataAvailable$.subscribe((userDataAvailable: boolean) => {
       if (userDataAvailable) {
         this.isGood = !this.isGood
-        this.booleanService.setBooleanValue(true);
         this.router.navigate(['/profile'])
       } else {
 

@@ -4,6 +4,7 @@ const path = require("path");
 const {log} = require("@angular-devkit/build-angular/src/builders/ssr-dev-server");
 const fs = require('fs');
 const {uid} = require("uid");
+const formidable = require('formidable');
 
 class UserController {
   async registration(req, res, next) {
@@ -27,6 +28,32 @@ class UserController {
 
   }
 
+  async getUsers(req, res, next) {
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+
+    try {
+      const users = await User.User.findAndCountAll({
+        offset,
+        limit: parseInt(limit),
+      });
+
+      if (users.rows.length === 0) {
+        return next(ApiError.notFound('Пользователи не найдены'));
+      }
+
+      const totalPages = Math.ceil(users.count / parseInt(limit));
+
+      return res.json({
+        totalPages,
+        currentPage: parseInt(page),
+        users: users.rows,
+      });
+    } catch (error) {
+      next(ApiError.internal('Ошибка при получении пользователей'));
+    }
+  }
+
   async login(req, res, next) {
     const { email, password } = req.body;
     try {
@@ -45,8 +72,6 @@ class UserController {
       return next(ApiError.internal('Ошибка при получении данных пользователя'));
     }
   }
-
-
   async updateProfilePhoto(req, res, next) {
     if (!req.files || !req.files.photo) {
       return res.status(400).send('Файл не был загружен');
@@ -72,12 +97,17 @@ class UserController {
       user.image = `/static/${filename}`;
       await user.save();
 
-      res.send('Фото было успешно обновлено');
+      return res.json({
+       user
+      });
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal server error');
     }
   }
+
+
+
 
 
 }

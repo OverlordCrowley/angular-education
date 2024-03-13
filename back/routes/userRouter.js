@@ -4,6 +4,7 @@ const userController = require('../controllers/userController')
 
 router.post('/registration',  userController.registration)
 router.post('/login', userController.login)
-router.post('/updateProfilePhoto', userController.updateProfilePhoto)
+router.get('/getAll', userController.getUsers)
+router.post('/updateProfilePhoto' ,userController.updateProfilePhoto)
 
 module.exports = router

@@ -30,6 +30,6 @@ export const UpdateProfilePhotoFailure = createAction(EUserActions.UpdateProfile
 
 export const LogOut = createAction(EUserActions.LogOut);
 
-export const GetUsers = createAction(EUserActions.GetUsers);
-export const GetUsersSuccess = createAction(EUserActions.GetUsersSuccess, props<{ users: any[] }>());
+export const GetUsers = createAction(EUserActions.GetUsers, props<{ page: number }>());
+export const GetUsersSuccess = createAction(EUserActions.GetUsersSuccess, props<{ users: any[], currentPage: number, totalPages: number }>());
 export const GetUsersFailure = createAction(EUserActions.GetUsersFailure, props<{ error: string }>());

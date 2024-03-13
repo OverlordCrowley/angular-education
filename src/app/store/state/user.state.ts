@@ -1,15 +1,17 @@
 export interface IUser{
   email: string;
+  pass: string;
   phone: string;
   firstName: string;
   lastName: string;
-  hobby: string[];
-  img? : string;
+  hobbies: string;
+  image? : string;
 }
 export interface IUserState{
   user: IUser | null,
   users?: IUser[] | null,
   error: string | null;
+  pages: object | null;
 
 }
 
@@ -17,6 +19,7 @@ export interface IUserState{
 export const initialUserState: IUserState = {
   user: null,
   users: null,
-  error: null
+  error: null,
+  pages: null
 };
 

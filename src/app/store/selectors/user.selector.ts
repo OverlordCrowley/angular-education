@@ -13,13 +13,14 @@ export const selectAllUser = createSelector(
   (state: any) => state.users
 );
 
+export const selectPages = createSelector(
+  selectUsersState,
+  (state: any) => ({ currentPage: state.currentPage, totalPages: state.totalPages })
+);
+
 export const isUserDataAvailable = createSelector(
   selectCurrentUser,
   (user: IUser | null) => {
-    if (user != null) {
-      return true;
-    } else {
-      return false;
-    }
+    return user != null;
   }
 );

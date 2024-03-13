@@ -41,8 +41,10 @@
       error: null
     })),
 
-    on(UserActions.GetUsersSuccess, (state, { users }) => ({
+    on(UserActions.GetUsersSuccess, (state, { users, totalPages, currentPage }) => ({
       ...state,
+      totalPages,
+      currentPage,
       users,
       error: null
     })),
